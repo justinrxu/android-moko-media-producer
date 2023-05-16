@@ -38,7 +38,9 @@ import dev.icerock.moko.media.Bitmap
 import dev.icerock.moko.media.compose.BindMediaPickerEffect
 import dev.icerock.moko.media.compose.rememberMediaPickerControllerFactory
 import dev.icerock.moko.media.compose.toImageBitmap
+import dev.icerock.moko.media.picker.CanceledException
 import dev.icerock.moko.media.picker.MediaSource
+import dev.icerock.moko.permissions.DeniedException
 import dev.icerock.moko.permissions.Permission
 import kotlinx.coroutines.launch
 
@@ -96,9 +98,12 @@ internal class MediaView : Screen {
                 shape = CircleShape,
                 onClick = {
                     scope.launch {
-                        picker.permissionsController.providePermission(Permission.GALLERY)
-                        if (picker.permissionsController.isPermissionGranted(Permission.GALLERY)) {
+                        try {
                             pfpBitmap = picker.pickImage(MediaSource.GALLERY)
+                        } catch (exc: DeniedException) {
+                            println("denied - $exc")
+                        } catch (exc: CanceledException) {
+                            println("cancelled - $exc")
                         }
                     }
                 }
