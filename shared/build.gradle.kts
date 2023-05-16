@@ -34,7 +34,7 @@ kotlin {
                 implementation("cafe.adriel.voyager:voyager-navigator:1.0.0-rc06")
                 implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:1.0.0-rc06")
 
-                implementation("dev.icerock.moko:media:0.11.0")
+                implementation("dev.icerock.moko:permissions-compose:0.16.0")
                 implementation("dev.icerock.moko:media-compose:0.11.0")
             }
         }
